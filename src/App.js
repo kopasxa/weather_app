@@ -7,7 +7,8 @@ import { Spinner, Container } from 'react-bootstrap';
 function App() {
   const [lat, setLat] = useState(50.431759);
   const [long, setLong] = useState(30.517023);
-  const [response, setResponse] = useState();
+  const [currentData, setcurrentData] = useState();
+  const [forecastData, setforecastData] = useState();
 
   useEffect(() => {
     const fetchRun = async () => {
@@ -16,10 +17,16 @@ function App() {
         setLong(position.coords.longitude);
       });
 
-      await fetch(`${process.env.REACT_APP_API_URL}?lat=${lat}&lon=${long}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
-      .then(res => res.json())
-      .then(result => {
-        setResponse(result)
+      await fetch(`${process.env.REACT_APP_API_URL}/weather?lat=${lat}&lon=${long}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
+        .then(res => res.json())
+        .then(result => {
+          setcurrentData(result)
+      });
+
+      await fetch(`${process.env.REACT_APP_API_URL}/onecall?lat=${lat}&lon=${long}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
+        .then(res => res.json())
+        .then(result => {
+          setforecastData(result)
       });
     }
 
@@ -27,10 +34,10 @@ function App() {
   }, [lat, long]);
 
   return (
-    <Container className='mx-auto d-flex justify-content-center align-items-center' id='app'>
+    <Container className='mx-auto d-flex justify-content-center pt-5' id='app'>
       {
-        response !== undefined 
-          ? <Weather data={response}/>
+        currentData !== undefined && forecastData !== undefined
+          ? <Weather data={currentData} forecast_data={forecastData}/>
           : <Spinner animation="border" role="status" className='customSpinner'><span className="visually-hidden">Loading...</span></Spinner>
       }
     </Container>

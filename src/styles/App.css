@@ -2,10 +2,12 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    color: black
 }
 
-#app {
-    height: 90vh;
+#root {
+    background: linear-gradient(118.99deg, #A1C4FD 9.34%, #C2E9FB 87.11%);
+    min-height: 100vh;
 }
 
 .customSpinner {

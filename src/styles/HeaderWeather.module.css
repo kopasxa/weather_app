@@ -1,0 +1,23 @@
+.card_title {
+    font-size: 50px;
+    font-weight: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0;
+}
+
+.image_weather {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.card {
+    border: none;
+    background-color: transparent;
+}
+
+.card_text {
+    margin-top: 35px;
+    font-weight: 500;
+}
